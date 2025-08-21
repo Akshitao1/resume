@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +8,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals with Subtle Blue Accent -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (`#FDFBF8`, `#FCF8F5`) with Dynamic Blue Accent (`#3B82F6`, `#1D4ED8`) -->
     <!-- Application Structure Plan: A single-page, multi-section layout is chosen for a narrative, scroll-based user experience. The structure flows from a high-level summary, skills, experience, projects, then the detailed cover letter, and finally the contact section. This design allows recruiters to either get a quick overview or dive deep into specific areas without navigating away. Key interactions include a dynamic skills chart, a filterable project gallery, and an interactive timeline for experience, making the exploration of Akshita's qualifications engaging and intuitive. The summary section has been optimized to be more compact and immediately informative, removing the explicit heading and integrating aspirational language directly into the text. The cover letter is now placed strategically after showcasing projects, allowing a personal statement to follow the detailed experience. -->
     <!-- Visualization & Content Choices:
-        - Summary -> Inform -> Dynamic Text Block -> Provides immediate, high-impact introduction, setting the tone for an aspiring product leader in AI.
-        - Skills -> Organize/Compare -> Radar Chart (Chart.js) -> Interactive tooltips on hover -> Provides a quick, visually compelling overview of core competencies.
-        - Experience -> Change/Organize -> Interactive Timeline (HTML/CSS/JS) -> Click to expand details -> Presents career progression chronologically and clearly.
-        - Projects -> Organize/Inform -> Filterable Card Gallery (HTML/CSS/JS) -> Click to filter by skill/tech -> Allows users to focus on projects most relevant to their interests.
-        - Cover Letter -> Inform -> Static Text Block -> Provides a personalized, narrative overview of qualifications, hard work, and determination.
-        - Contact -> Inform -> Static Text Block with links -> Provides clear contact information for easy reach-out.
-        - All choices are made to be interactive, clear, and avoid static presentation. -->
+        - Summary -> Inform -> Dynamic Text Block -> Provides immediate, high-impact introduction with subtle entrance animation.
+        - Skills -> Organize/Compare -> Radar Chart (Chart.js) -> Interactive tooltips on hover with enhanced visual presentation -> Provides a quick, visually compelling overview of core competencies.
+        - Experience -> Change/Organize -> Interactive Timeline (HTML/CSS/JS) -> Click to expand details with smooth transition and visual markers -> Presents career progression chronologically and clearly.
+        - Projects -> Organize/Inform -> Filterable Card Gallery (HTML/CSS/JS) -> Click to filter by skill/tech with animated card appearance and enhanced hover effects -> Allows users to focus on projects most relevant to their interests.
+        - Cover Letter -> Inform -> Static Text Block -> Provides a personalized, narrative overview of qualifications, hard work, and determination with subtle entrance animation.
+        - Contact -> Inform -> Static Text Block with links -> Provides clear contact information for easy reach-out with improved iconography and hover effects.
+        - All choices are made to be interactive, clear, and avoid static presentation. Animations are subtle and enhance understanding and engagement. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FDFBF8;
+            background-color: #FDFBF8; /* Primary light background */
             color: #333;
+            line-height: 1.6;
         }
         .nav-link {
             transition: color 0.3s ease, border-bottom-color 0.3s ease;
@@ -35,46 +36,124 @@
             border-bottom-color: #3B82F6;
         }
         .timeline-item {
-            border-left: 3px solid #D1D5DB;
+            border-left: 3px solid #D1D5DB; /* Light grey line */
+            transition: all 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .timeline-item.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .timeline-dot {
             position: absolute;
-            left: -0.8rem;
+            left: -0.8rem; /* Adjusted for larger dot */
             top: 0.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.6rem; /* Larger dot */
+            height: 1.6rem;
             border-radius: 50%;
-            background-color: #FDFBF8;
-            border: 3px solid #3B82F6;
+            background-color: #FDFBF8; /* Match body background */
+            border: 4px solid #3B82F6; /* Thicker, vibrant blue border */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Subtle glow */
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.1);
+            background-color: #3B82F6; /* Fill dot on hover */
         }
         .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, opacity 0.5s ease-out, transform 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .project-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .filter-btn {
+            transition: all 0.3s ease-out;
+            border: 1px solid transparent;
+        }
+        .filter-btn.active {
+            background-color: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+        .filter-btn:hover:not(.active) {
+            background-color: #BFDBFE; /* Light blue on hover */
+            color: #1D4ED8; /* Darker blue text */
+            border-color: #BFDBFE;
+        }
+        .contact-link {
+            transition: all 0.3s ease-out;
+            transform: translateY(0);
+        }
+        .contact-link:hover {
+            color: #1D4ED8;
+            transform: translateY(-3px);
+            text-decoration: underline;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px; /* Slightly wider for better chart display */
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            height: 350px; /* Base height */
+            max-height: 450px; /* Max height */
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            padding: 1.5rem;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 400px;
+                height: 450px; /* Taller on desktop */
             }
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .section-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .header-bg {
+            background: linear-gradient(135deg, #FCF8F5 0%, #FDFBF8 100%); /* Subtle gradient for background */
+        }
+        .button-primary {
+            background-color: #3B82F6;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .button-primary:hover {
+            background-color: #1D4ED8; /* Darker blue on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .prose-custom p {
+            margin-bottom: 1.25em; /* Add more space between paragraphs */
+        }
+        .prose-custom p:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-lg">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-gray-800">
+            <div class="text-2xl font-extrabold text-gray-800">
                 Akshita Kharbanda
             </div>
             <div class="hidden md:flex space-x-8">
@@ -86,37 +165,39 @@
                 <a href="#contact" class="nav-link text-gray-600 font-medium pb-1">Contact</a>
             </div>
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
-            <a href="#summary" class="block nav-link text-gray-600 font-medium">Summary</a>
-            <a href="#skills" class="block nav-link text-gray-600 font-medium">Skills</a>
-            <a href="#experience" class="block nav-link text-gray-600 font-medium">Experience</a>
-            <a href="#projects" class="block nav-link text-gray-600 font-medium">Projects</a>
-            <a href="#cover-letter" class="block nav-link text-gray-600 font-medium">Cover Letter</a>
-            <a href="#contact" class="block nav-link text-gray-600 font-medium">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2 bg-white/90">
+            <a href="#summary" class="block nav-link text-gray-600 font-medium py-2">Summary</a>
+            <a href="#skills" class="block nav-link text-gray-600 font-medium py-2">Skills</a>
+            <a href="#experience" class="block nav-link text-gray-600 font-medium py-2">Experience</a>
+            <a href="#projects" class="block nav-link text-gray-600 font-medium py-2">Projects</a>
+            <a href="#cover-letter" class="block nav-link text-gray-600 font-medium py-2">Cover Letter</a>
+            <a href="#contact" class="block nav-link text-gray-600 font-medium py-2">Contact</a>
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-12">
 
         <!-- Summary Section -->
-        <section id="summary" class="pt-8 pb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Aspirations in AI Product Leadership</h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mb-8">
-                With over 6 years of experience, I am an **aspirational Product Manager** specializing in driving innovation at the intersection of AI, web platforms, and user experience. My proven ability to **envision and deliver novel agentic experiences** from ideation to execution positions me as a future leader in AI-driven product development.
-            </p>
-            <a href="https://www.linkedin.com/in/akshita-kharbanda/" target="_blank" class="inline-block bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
-                View LinkedIn Profile
-            </a>
+        <section id="summary" class="pt-8 pb-12 header-bg rounded-lg shadow-lg mb-20 section-fade-in">
+            <div class="p-8 md:p-12 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">Aspirations in AI Product Leadership</h1>
+                <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
+                    With over 6 years of experience, I am an **aspirational Product Manager** specializing in driving innovation at the intersection of AI, web platforms, and user experience. My proven ability to **envision and deliver novel agentic experiences** from ideation to execution positions me as a future leader in AI-driven product development.
+                </p>
+                <a href="https://www.linkedin.com/in/akshita-kharbanda/" target="_blank" class="button-primary inline-block">
+                    View LinkedIn Profile
+                </a>
+            </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Core Competencies</h2>
+        <section id="skills" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Core Competencies</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 This section provides a visual overview of my key skills. The radar chart below highlights my proficiency across different domains, from product strategy and AI concepts to data analytics and leadership. This visualization helps in quickly understanding my core strengths and how they align with the requirements of a dynamic product management role.
             </p>
@@ -126,19 +207,19 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-12">Career Journey</h2>
+        <section id="experience" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Career Journey</h2>
              <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 My professional journey is presented as an interactive timeline. This format allows you to trace my career progression, see the roles I've held, and understand the impact I've made at each stage. Click on each role to expand and view detailed responsibilities and achievements, providing a clear narrative of my growth and experience.
             </p>
-            <div id="experience-timeline" class="relative max-w-3xl mx-auto">
+            <div id="experience-timeline" class="relative max-w-3xl mx-auto p-4 md:p-8 bg-white rounded-lg shadow-md">
                 <!-- JS will populate this -->
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Key Projects</h2>
+        <section id="projects" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Key Projects</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 Here you'll find a curated selection of my most impactful projects. This gallery is designed to be interactive; you can filter the projects by key skills or technologies to focus on what's most relevant to you. This allows for a deeper dive into my practical experience and problem-solving capabilities in specific areas like AI, web development, and user-centric design.
             </p>
@@ -151,12 +232,12 @@
         </section>
 
         <!-- Cover Letter Section -->
-        <section id="cover-letter" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">My Passion for Product & Impact</h2>
+        <section id="cover-letter" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">My Passion for Product & Impact</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 This section serves as a personalized cover letter, articulating my profound interest in product leadership, particularly within the innovative domain of AI. It highlights my dedication, collaborative spirit, and proactive approach to overcoming challenges, demonstrating how my values align with dynamic, forward-thinking teams.
             </p>
-            <div class="prose prose-lg mx-auto text-gray-700">
+            <div class="prose-custom mx-auto text-gray-700 max-w-3xl">
                 <p>Dear Hiring Team,</p>
                 <p>I am writing to express my enthusiastic interest in Product Manager roles. My career has been driven by a relentless curiosity and a passion for crafting intuitive web experiences that solve complex user problems, a drive that aligns perfectly with the future of AI agents.</p>
                 <p>Throughout my 6+ years in product and technical roles, I've cultivated a strong foundation in **data-driven decision-making** and **agile execution**. For instance, my work on the **Amazon Brazil Dashboard** was a testament to my determination: I single-handedly owned and led its development from design to deployment within a week and a half, learning to build a fully interactive dashboard with AI tools from scratch. This project exemplifies my commitment to **delivering high-impact solutions** even under tight timelines.</p>
@@ -169,22 +250,22 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Get in Touch</h2>
+        <section id="contact" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Get in Touch</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 I'm always open to discussing new opportunities, collaborations, or simply connecting with fellow professionals. Feel free to reach out using the contact details below.
             </p>
             <div class="flex flex-col items-center justify-center gap-6 text-xl text-gray-700">
-                <div class="flex items-center space-x-3">
-                    <span class="text-blue-500 text-2xl">✉️</span>
+                <div class="flex items-center space-x-3 contact-link">
+                    <span class="text-blue-500 text-2xl" role="img" aria-label="email">✉️</span>
                     <a href="mailto:kharbanda.akshita@gmail.com" class="hover:underline">kharbanda.akshita@gmail.com</a>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <span class="text-blue-500 text-2xl">📞</span>
+                <div class="flex items-center space-x-3 contact-link">
+                    <span class="text-blue-500 text-2xl" role="img" aria-label="phone">📞</span>
                     <a href="tel:+919981114058" class="hover:underline">+91 9981114058</a>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <span class="text-blue-500 text-2xl">🔗</span>
+                <div class="flex items-center space-x-3 contact-link">
+                    <span class="text-blue-500 text-2xl" role="img" aria-label="linkedin">🔗</span>
                     <a href="https://www.linkedin.com/in/akshita-kharbanda/" target="_blank" class="hover:underline">LinkedIn Profile</a>
                 </div>
             </div>
@@ -246,6 +327,26 @@
                 });
             });
 
+            // Scroll-triggered Fade-in Animation for Sections
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
             // Skills Chart
             const skillsData = {
                 labels: ['Product Vision & Strategy', 'AI & Agent Concepts', 'Data & Analytics', 'Web & Browser Products', 'Leadership', 'UX & User Empathy'],
@@ -282,8 +383,8 @@
                             },
                             suggestedMin: 0,
                             suggestedMax: 100
-                        }
-                    },
+                            },
+                        },
                     plugins: {
                         legend: { display: false },
                         tooltip: {
@@ -291,7 +392,14 @@
                                 label: function(context) {
                                     return `${context.dataset.label}: ${context.raw}%`;
                                 }
-                            }
+                            },
+                            backgroundColor: '#333',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#3B82F6',
+                            borderWidth: 1,
+                            cornerRadius: 6,
+                            displayColors: false
                         }
                     }
                 }
@@ -358,6 +466,7 @@
                     </ul>
                 `;
                 timelineContainer.appendChild(div);
+                observer.observe(div); // Observe for fade-in
             });
 
             timelineContainer.addEventListener('click', (e) => {
@@ -365,6 +474,9 @@
                 if (header) {
                     const details = header.nextElementSibling;
                     details.classList.toggle('hidden');
+                    details.style.maxHeight = details.classList.contains('hidden') ? '0' : details.scrollHeight + 'px'; // Smooth collapse
+                    details.style.transition = 'max-height 0.5s ease-out, opacity 0.5s ease-out';
+                    details.style.opacity = details.classList.contains('hidden') ? '0' : '1';
                 }
             });
 
@@ -398,13 +510,11 @@
 
             allTags.forEach(tag => {
                 const button = document.createElement('button');
-                button.className = 'filter-btn px-4 py-2 rounded-full text-sm font-medium transition-colors';
+                button.className = 'filter-btn px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300';
                 button.textContent = tag;
                 button.dataset.filter = tag;
                 if (tag === 'All') {
-                    button.classList.add('bg-blue-500', 'text-white');
-                } else {
-                    button.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+                    button.classList.add('active');
                 }
                 filtersContainer.appendChild(button);
             });
@@ -424,6 +534,7 @@
                         </div>
                     `;
                     gallery.appendChild(card);
+                    observer.observe(card); // Observe for fade-in
                 });
             };
 
@@ -431,11 +542,9 @@
                 if (e.target.classList.contains('filter-btn')) {
                     const filter = e.target.dataset.filter;
                     document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.classList.remove('bg-blue-500', 'text-white');
-                        btn.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+                        btn.classList.remove('active');
                     });
-                    e.target.classList.add('bg-blue-500', 'text-white');
-                    e.target.classList.remove('bg-gray-200', 'text-gray-700', 'hover:bg-gray-300');
+                    e.target.classList.add('active');
                     renderProjects(filter);
                 }
             });
