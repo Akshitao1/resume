@@ -12,11 +12,11 @@
     <!-- Chosen Palette: Warm Neutrals (`#FDFBF8`, `#FCF8F5`) with Dynamic Blue Accent (`#3B82F6`, `#1D4ED8`) -->
     <!-- Application Structure Plan: A single-page, multi-section layout is chosen for a narrative, scroll-based user experience. The structure flows from a high-level summary, skills, experience, projects, then the detailed cover letter, and finally the contact section. This design allows recruiters to either get a quick overview or dive deep into specific areas without navigating away. Key interactions include a dynamic skills chart, a filterable project gallery, and an interactive timeline for experience, making the exploration of Akshita's qualifications engaging and intuitive. The summary section has been optimized to be more compact and immediately informative, removing the explicit heading and integrating aspirational language directly into the text. The cover letter is now placed strategically after showcasing projects, allowing a personal statement to follow the detailed experience. -->
     <!-- Visualization & Content Choices:
-        - Summary -> Inform -> Dynamic Text Block -> Provides immediate, high-impact introduction with subtle entrance animation.
+        - Summary -> Inform -> Dynamic Text Block -> Provides immediate, high-impact introduction.
         - Skills -> Organize/Compare -> Radar Chart (Chart.js) -> Interactive tooltips on hover with enhanced visual presentation -> Provides a quick, visually compelling overview of core competencies.
         - Experience -> Change/Organize -> Interactive Timeline (HTML/CSS/JS) -> Click to expand details with smooth transition and visual markers -> Presents career progression chronologically and clearly.
         - Projects -> Organize/Inform -> Filterable Card Gallery (HTML/CSS/JS) -> Click to filter by skill/tech with animated card appearance and enhanced hover effects -> Allows users to focus on projects most relevant to their interests.
-        - Cover Letter -> Inform -> Static Text Block -> Provides a personalized, narrative overview of qualifications, hard work, and determination with subtle entrance animation.
+        - Cover Letter -> Inform -> Static Text Block -> Provides a personalized, narrative overview of qualifications, hard work, and determination.
         - Contact -> Inform -> Static Text Block with links -> Provides clear contact information for easy reach-out with improved iconography and hover effects.
         - All choices are made to be interactive, clear, and avoid static presentation. Animations are subtle and enhance understanding and engagement. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -38,8 +38,8 @@
         .timeline-item {
             border-left: 3px solid #D1D5DB; /* Light grey line */
             transition: all 0.5s ease-out;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 0; /* Still keeps individual fade-in */
+            transform: translateY(20px); /* Still keeps individual fade-in */
         }
         .timeline-item.fade-in {
             opacity: 1;
@@ -63,8 +63,8 @@
         }
         .project-card {
             transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, opacity 0.5s ease-out, transform 0.5s ease-out;
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; /* Still keeps individual fade-in */
+            transform: translateY(30px); /* Still keeps individual fade-in */
         }
         .project-card.fade-in {
             opacity: 1;
@@ -115,7 +115,8 @@
                 height: 450px; /* Taller on desktop */
             }
         }
-        .section-fade-in {
+        /* Removed section-fade-in to ensure all sections are visible by default */
+        /* .section-fade-in {
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 1s ease-out, transform 1s ease-out;
@@ -123,7 +124,7 @@
         .section-fade-in.is-visible {
             opacity: 1;
             transform: translateY(0);
-        }
+        } */
         .header-bg {
             background: linear-gradient(135deg, #FCF8F5 0%, #FDFBF8 100%); /* Subtle gradient for background */
         }
@@ -183,7 +184,7 @@
     <main class="container mx-auto px-6 py-12">
 
         <!-- Summary Section -->
-        <section id="summary" class="pt-8 pb-12 header-bg rounded-lg shadow-lg mb-20 section-fade-in">
+        <section id="summary" class="pt-8 pb-12 header-bg rounded-lg shadow-lg mb-20"> <!-- Removed section-fade-in -->
             <div class="p-8 md:p-12 text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">Aspirations in AI Product Leadership</h1>
                 <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
@@ -196,7 +197,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+        <section id="skills" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8"> <!-- Removed section-fade-in -->
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Core Competencies</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 This section provides a visual overview of my key skills. The radar chart below highlights my proficiency across different domains, from product strategy and AI concepts to data analytics and leadership. This visualization helps in quickly understanding my core strengths and how they align with the requirements of a dynamic product management role.
@@ -207,7 +208,7 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+        <section id="experience" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8"> <!-- Removed section-fade-in -->
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Career Journey</h2>
              <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 My professional journey is presented as an interactive timeline. This format allows you to trace my career progression, see the roles I've held, and understand the impact I've made at each stage. Click on each role to expand and view detailed responsibilities and achievements, providing a clear narrative of my growth and experience.
@@ -218,7 +219,7 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+        <section id="projects" class="py-20 bg-white rounded-lg shadow-lg mb-20"> <!-- Removed section-fade-in -->
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Key Projects</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 Here you'll find a curated selection of my most impactful projects. This gallery is designed to be interactive; you can filter the projects by key skills or technologies to focus on what's most relevant to you. This allows for a deeper dive into my practical experience and problem-solving capabilities in specific areas like AI, web development, and user-centric design.
@@ -232,7 +233,7 @@
         </section>
 
         <!-- Cover Letter Section -->
-        <section id="cover-letter" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+        <section id="cover-letter" class="py-20 bg-gray-50 rounded-lg shadow-lg mb-20 p-8"> <!-- Removed section-fade-in -->
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">My Passion for Product & Impact</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 This section serves as a personalized cover letter, articulating my profound interest in product leadership, particularly within the innovative domain of AI. It highlights my dedication, collaborative spirit, and proactive approach to overcoming challenges, demonstrating how my values align with dynamic, forward-thinking teams.
@@ -250,7 +251,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8 section-fade-in">
+        <section id="contact" class="py-20 bg-white rounded-lg shadow-lg mb-20 p-8"> <!-- Removed section-fade-in -->
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Get in Touch</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 I'm always open to discussing new opportunities, collaborations, or simply connecting with fellow professionals. Feel free to reach out using the contact details below.
@@ -327,24 +328,25 @@
                 });
             });
 
-            // Scroll-triggered Fade-in Animation for Sections
+            // Scroll-triggered Fade-in Animation for individual timeline items and project cards
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.1
+                threshold: 0.1 // Trigger when 10% of the element is visible
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const elementObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+                        entry.target.classList.add('fade-in');
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            sections.forEach(section => {
-                observer.observe(section);
+            // Observe existing timeline items and project cards
+            document.querySelectorAll('.timeline-item, .project-card').forEach(element => {
+                elementObserver.observe(element);
             });
 
             // Skills Chart
@@ -451,6 +453,7 @@
             ];
 
             const timelineContainer = document.getElementById('experience-timeline');
+            timelineContainer.innerHTML = ''; // Clear existing content to prevent duplicates on re-render
             experienceData.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'relative pl-8 sm:pl-12 py-6 timeline-item';
@@ -466,7 +469,7 @@
                     </ul>
                 `;
                 timelineContainer.appendChild(div);
-                observer.observe(div); // Observe for fade-in
+                elementObserver.observe(div); // Observe for individual fade-in
             });
 
             timelineContainer.addEventListener('click', (e) => {
@@ -508,6 +511,7 @@
             const filtersContainer = document.getElementById('project-filters');
             const allTags = ['All', ...new Set(projectData.flatMap(p => p.tags))];
 
+            filtersContainer.innerHTML = ''; // Clear filters to prevent duplicates on re-render
             allTags.forEach(tag => {
                 const button = document.createElement('button');
                 button.className = 'filter-btn px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300';
@@ -534,7 +538,7 @@
                         </div>
                     `;
                     gallery.appendChild(card);
-                    observer.observe(card); // Observe for fade-in
+                    elementObserver.observe(card); // Observe for individual fade-in
                 });
             };
 
@@ -549,7 +553,7 @@
                 }
             });
 
-            renderProjects();
+            renderProjects(); // Initial render of projects
         });
     </script>
 </body>
