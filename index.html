@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals with Subtle Blue Accent -->
-    <!-- Application Structure Plan: A single-page, multi-section layout is chosen for a narrative, scroll-based user experience. The structure flows from a high-level summary to detailed skills, experience, and projects, and now includes a dedicated contact section. This design allows recruiters to either get a quick overview or dive deep into specific areas without navigating away. Key interactions include a dynamic skills chart, a filterable project gallery, and an interactive timeline for experience, making the exploration of Akshita's qualifications engaging and intuitive. The summary section has been optimized to be more compact and immediately informative, removing the explicit heading and integrating aspirational language directly into the text. -->
+    <!-- Application Structure Plan: A single-page, multi-section layout is chosen for a narrative, scroll-based user experience. The structure flows from a high-level summary, skills, experience, projects, then the detailed cover letter, and finally the contact section. This design allows recruiters to either get a quick overview or dive deep into specific areas without navigating away. Key interactions include a dynamic skills chart, a filterable project gallery, and an interactive timeline for experience, making the exploration of Akshita's qualifications engaging and intuitive. The summary section has been optimized to be more compact and immediately informative, removing the explicit heading and integrating aspirational language directly into the text. The cover letter is now placed strategically after showcasing projects, allowing a personal statement to follow the detailed experience. -->
     <!-- Visualization & Content Choices:
         - Summary -> Inform -> Dynamic Text Block -> Provides immediate, high-impact introduction, setting the tone for an aspiring product leader in AI.
         - Skills -> Organize/Compare -> Radar Chart (Chart.js) -> Interactive tooltips on hover -> Provides a quick, visually compelling overview of core competencies.
         - Experience -> Change/Organize -> Interactive Timeline (HTML/CSS/JS) -> Click to expand details -> Presents career progression chronologically and clearly.
         - Projects -> Organize/Inform -> Filterable Card Gallery (HTML/CSS/JS) -> Click to filter by skill/tech -> Allows users to focus on projects most relevant to their interests.
+        - Cover Letter -> Inform -> Static Text Block -> Provides a personalized, narrative overview of qualifications, hard work, and determination.
         - Contact -> Inform -> Static Text Block with links -> Provides clear contact information for easy reach-out.
         - All choices are made to be interactive, clear, and avoid static presentation. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -81,6 +82,7 @@
                 <a href="#skills" class="nav-link text-gray-600 font-medium pb-1">Skills</a>
                 <a href="#experience" class="nav-link text-gray-600 font-medium pb-1">Experience</a>
                 <a href="#projects" class="nav-link text-gray-600 font-medium pb-1">Projects</a>
+                <a href="#cover-letter" class="nav-link text-gray-600 font-medium pb-1">Cover Letter</a>
                 <a href="#contact" class="nav-link text-gray-600 font-medium pb-1">Contact</a>
             </div>
             <div class="md:hidden">
@@ -94,6 +96,7 @@
             <a href="#skills" class="block nav-link text-gray-600 font-medium">Skills</a>
             <a href="#experience" class="block nav-link text-gray-600 font-medium">Experience</a>
             <a href="#projects" class="block nav-link text-gray-600 font-medium">Projects</a>
+            <a href="#cover-letter" class="block nav-link text-gray-600 font-medium">Cover Letter</a>
             <a href="#contact" class="block nav-link text-gray-600 font-medium">Contact</a>
         </div>
     </header>
@@ -144,6 +147,24 @@
             </div>
             <div id="project-gallery" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- JS will populate this -->
+            </div>
+        </section>
+
+        <!-- Cover Letter Section -->
+        <section id="cover-letter" class="py-20">
+            <h2 class="text-3xl font-bold text-center mb-4">My Passion for Product & Impact</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                This section serves as a personalized cover letter, articulating my profound interest in product leadership, particularly within the innovative domain of AI. It highlights my dedication, collaborative spirit, and proactive approach to overcoming challenges, demonstrating how my values align with dynamic, forward-thinking teams.
+            </p>
+            <div class="prose prose-lg mx-auto text-gray-700">
+                <p>Dear Hiring Team,</p>
+                <p>I am writing to express my enthusiastic interest in Product Manager roles. My career has been driven by a relentless curiosity and a passion for crafting intuitive web experiences that solve complex user problems, a drive that aligns perfectly with the future of AI agents.</p>
+                <p>Throughout my 6+ years in product and technical roles, I've cultivated a strong foundation in **data-driven decision-making** and **agile execution**. For instance, my work on the **Amazon Brazil Dashboard** was a testament to my determination: I single-handedly owned and led its development from design to deployment within a week and a half, learning to build a fully interactive dashboard with AI tools from scratch. This project exemplifies my commitment to **delivering high-impact solutions** even under tight timelines.</p>
+                <p>My approach is rooted in **hard work** and a proactive desire to contribute beyond my direct responsibilities. In managing monthly Media Planning, I consistently ensured timely delivery and actively identified anomalies, discussing them with the DS team to refine logic and improve solutions. This involved **frequent and clear communication** with stakeholders like Adnan and Vandit to ensure performance alignment. I thrive on diving deep into challenges, as evidenced by my efforts in identifying and solving issues with publisher recommendations and CPA suggestions, always working collaboratively with CSEs and the DS team to ensure data alignment and optimal outcomes.</p>
+                <p>I am eager to apply my product intuition and expertise in web platforms to envision and shape novel agentic experiences. My experience in **user-centric design**, **developing production-level dashboards using React**, and researching **AI and LLM applications** has prepared me to contribute significantly to an innovative team's work. I am not just looking for a role; I am seeking an opportunity to be part of a team that is truly revolutionizing how people interact with information and technology.</p>
+                <p>Thank you for considering my application. I am confident that my blend of technical understanding, product leadership, and unwavering determination makes me a strong candidate for this role. I look forward to the possibility of discussing how I can contribute to your exciting future.</p>
+                <p>Sincerely,</p>
+                <p>Akshita Kharbanda</p>
             </div>
         </section>
 
